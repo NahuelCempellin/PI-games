@@ -1,0 +1,16 @@
+export const GAME_URL= 'http://www.localhost:3001/videogames';
+export const NAME_URL= 'http://localhost:3001/videogames?name=';
+export const GENRES_URL= 'http://localhost:3001/genre';
+export const POST_URL= 'http://www.localhost:3001/videogame';
+export const ID_URL='http://www.localhost:3001/videogames/';
+export const PLATFORM_URL='http://www.localhost:3001/platforms';
+export const GET_DETAIL='GET_DETAIL';
+export const GET_GAMES= 'GET_GAMES';
+export const GET_GENRES='GET_GENRES';
+export const GET_PLATFORMS='GET_PLATFORMS';
+export const POST_GAME='POST_GAME';
+export const FILTER_BY_GENRE= 'FILTER_BY_GENRE';
+export const FILTER_BY_PLATFORM= 'FILTER_BY_PLATFORM';
+export const FILTER_BY_ALPH= 'FILTER_BY_ALPH';
+export const FILTER_BY_SEARCH='FILTER_BY_SEARCH';
+export const WAITING= 'https://img.wattpad.com/f3ce64c7ba22d5c00f892e3d804daa195fc201bc/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f776174747061642d6d656469612d736572766963652f53746f7279496d6167652f2d55566c5f6f56305653455279513d3d2d3934393038393339302e313633323339346565346638623661353738303338303538323435312e676966';

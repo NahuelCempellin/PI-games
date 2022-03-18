@@ -12,6 +12,8 @@ FILTER_BY_GENRE,
 FILTER_BY_ALPH,
 FILTER_BY_PLATFORM,
 FILTER_BY_SEARCH,
+FILTER_BY_CREATED,
+FILTER,
 NAME_URL} from "../Components/Constants/constants";
 import axios from 'axios';
 
@@ -81,6 +83,13 @@ export function filterByGenre(payload){
     }
 }
 
+export function filterByCreate(payload){
+    return{
+        type: FILTER_BY_CREATED,
+        payload
+    }
+}
+
 export function filterByPlatform(payload){
     return{
         type: FILTER_BY_PLATFORM,
@@ -112,5 +121,13 @@ export function postGame(payload){
         const response= await axios.post(POST_URL, payload)
         console.log(response)
         return(response)
+    }
+}
+
+
+export function filt(payload){
+    return{
+    type: FILTER,
+    payload
     }
 }

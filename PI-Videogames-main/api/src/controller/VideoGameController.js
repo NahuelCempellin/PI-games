@@ -23,12 +23,11 @@ const Info = async () => {
           attributes: ["name"],
           through: { attributes: [] },
         },
+        attributes: ['name','id', 'description', 'released','rating','platforms','image','createdInDb']
       });
-      let allVideogamesInfo = getDBInfo
-        ? [...allVideogamesApi, ...getDBInfo]
-        : [...allVideogamesApi];
+      
   
-      let formatedApiInfo = allVideogamesInfo?.map((e) => {
+      let formatedApiInfo = allVideogamesApi?.map((e) => {
         return {
           id: e.id,
           name: e.name,
@@ -40,8 +39,12 @@ const Info = async () => {
           ),
         };
       });
+
+      let allVideogamesInfo = getDBInfo
+        ? [...formatedApiInfo, ...getDBInfo]
+        : [...formatedApiInfo];
   
-      return formatedApiInfo;
+      return allVideogamesInfo;
     } catch (error) {
       console.log(error);
     }
@@ -63,7 +66,8 @@ const getNamesGames= async (name)=>{
               name:{
                   [Op.iLike]: `%${name}%`
               }
-          }
+          },
+          attributes: ['name','id', 'description', 'released','rating','platforms','image','createdInDb']
       })
      
       let VideoGamesNames = DBGame
@@ -103,6 +107,7 @@ const getGameID = async (id) => {
           include: [
             { model: Genre, attributes: ["name"], through: { attributes: [] } },
           ],
+          attributes: ['name','id', 'description', 'released','rating','platforms','image','createdInDb']
         });
         return dbSearch[0];
       } catch (error) {
@@ -167,11 +172,12 @@ const getGameID = async (id) => {
   }
   
     const postGame= async(req,res,next)=>{
+      
       try
-        { const{name, id, description, relesed, rating, platforms, image, genres}= req.body;
-        
+        { const{name, id, description, released, rating, platforms, image, genres}= req.body;
+        const createdInDb= true;
        
-        const newGame= {name, id, description, relesed, rating, platforms, image}
+        const newGame= {name, id, description, released, rating, platforms, image, createdInDb}
 
         const createGame= await Videogames.create(newGame)
     

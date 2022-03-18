@@ -43,6 +43,7 @@ export const Mup= styled.div`
 border: 15px solid white;
 background: rgb(46,46,48);
 background: radial-gradient(circle, rgba(46,46,48,1) 0%, rgba(0,0,0,1) 100%);
+width: 100%;
 
 `
 

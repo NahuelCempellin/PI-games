@@ -1,9 +1,9 @@
 import {React, useEffect, useState} from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { getAllGames, getAllGenres, getPlatforms, postGame } from '../../reducer/action';
+import {  getAllGenres, getPlatforms, postGame } from '../../reducer/action';
 import {useDispatch, useSelector} from 'react-redux'
 import { FormCont } from '../../Styles/Form/form';
-import { InputForm, TextArea, SelectorForm, UlCont, SelButton, valP } from '../../Styles/Form/form';
+import { InputForm, TextArea, SelectorForm, UlCont, SelButton } from '../../Styles/Form/form';
 
 function validate(input){
     let error={};
@@ -15,6 +15,14 @@ function validate(input){
     }
      if(!input.released){
     error.released= 'A released date is required...'
+    }else if(!/^\d{4}-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01])$/.test(input.released)){
+        error.released='Error.';
+    }
+    if(!input.image){
+        error.image= 'A image is required...'
+    }
+    if(!input.description){
+        error.description= 'Please full the camp...'
     }
     if(!input.rating && input.rating < 0 && input.rating > 5){
         error.rating= 'The rating must be < 0 & > 5...'
@@ -33,6 +41,7 @@ export default function Forms(){
     const dispatch= useDispatch();
     const history= useNavigate();
     const generes= useSelector((state)=> state.genre);
+   
     const plataforms= useSelector((state)=>state.platforms);
     const[error, setError]= useState({});
 
@@ -139,6 +148,7 @@ function deletePlatform(p){
     useEffect(()=>{
         dispatch(getAllGenres());
         dispatch(getPlatforms());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
 
 
@@ -201,7 +211,7 @@ function deletePlatform(p){
                     </SelectorForm>                            
                     </div>
                     <div>
-                    <label>Generos:</label>
+                    <label>Genres:</label>
                     <SelectorForm
                     onChange={(e)=>handleSelectGenre(e)}>
                        {
@@ -241,6 +251,9 @@ function deletePlatform(p){
                     value={input.image}
                     name='image'
                     onChange={(e)=>handleChange(e)}/>
+                     {
+                        <p className='err'>{error.image}</p>
+                    }
                     </div>
 
                     <div>
@@ -250,6 +263,9 @@ function deletePlatform(p){
                     value={input.description}
                     name='description'
                     onChange={(e)=>handleChange(e)}/>
+                     {
+                        <p className='err'>{error.textarea}</p>
+                    }
                     </div>
                     <div>
                         <SelButton type='submit' onClick={(e)=>handleSubmit(e)}>Submit</SelButton>

@@ -5,7 +5,9 @@ POST_GAME,
 FILTER_BY_ALPH, 
 FILTER_BY_PLATFORM,
 FILTER_BY_SEARCH,
+FILTER_BY_CREATED,
 GET_GENRES,
+FILTER,
 GET_PLATFORMS} from "../Components/Constants/constants";
 
 
@@ -34,7 +36,8 @@ const reducer=(state= initialState, action)=>{
         case GET_DETAIL:
             return{
                 ...state,
-                detail: action.payload
+                detail: action.payload,
+                
             }
 
         case GET_GENRES:
@@ -73,6 +76,27 @@ const reducer=(state= initialState, action)=>{
                 ...state,
                 games:action.payload
             }
+        case FILTER_BY_CREATED:
+            const filt= state.allGames.filter((el)=> el.createdInDb)
+            const Notfilt= state.allGames.filter((el)=> !el.createdInDb) 
+
+            return{
+                ...state,
+                games:  action.payload === 'created'? filt:
+                Notfilt
+            }    
+
+            case FILTER:
+                const asc= action.payload=== 'Asc'?state.allGames.sort((a,b)=> b.rating - a.rating):
+                state.allGames.sort((a,b)=>  a.rating - b.rating)
+                
+
+             return{
+                 ...state,
+                 games: asc
+
+            }
+
         case POST_GAME:
             return{
                 ...state

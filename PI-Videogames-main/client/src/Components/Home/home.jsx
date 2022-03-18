@@ -8,6 +8,7 @@ import NavBar from '../Nav/NavBar/navBar'
 import { NotFound } from "../../Styles/Cards/Cards";
 import { WAITING } from "../Constants/constants";
 import { ContNot, SonicW } from "../../Styles/Cards/Cards";
+import { PagButton } from "../../Styles/Paginate/paginate";
 
 export default function Home(){
     const dispatch= useDispatch();
@@ -17,6 +18,7 @@ export default function Home(){
     const indexOfLastGame= currentPage*gamePerPage;
     const indexOfFirstGame= indexOfLastGame - gamePerPage;
     const currentGame= allGames.slice(indexOfFirstGame,indexOfLastGame)
+    // eslint-disable-next-line no-unused-vars
     const[order, setOrder]= useState('');
 
     const pag=(pageNumber)=>{
@@ -26,12 +28,18 @@ export default function Home(){
         dispatch(getAllGames())
     },[])
     
+    function handleSubmit(){
+        dispatch(getAllGames());
+    }
+
+  
 
     return(
         <div>
             <div>
             <NavBar setOrder={setOrder}/>
             </div>
+            <PagButton onClick={handleSubmit}>↻</PagButton>
            <Paginate
             gamePerPage={gamePerPage}
             allGames={allGames.length}
@@ -41,7 +49,7 @@ export default function Home(){
                     <span>
                 {allGames.length===0?(
                     <ContNot>
-                <NotFound>PLEASE WAIT..</NotFound>
+                <NotFound>GAME NOT FOUND..</NotFound>
                 <SonicW src={WAITING} alt=''/>
                 </ContNot> ): currentGame.map((game)=>{
                     return(
@@ -54,7 +62,7 @@ export default function Home(){
                             rating={game.rating}
                             platforms={game.platforms}
                             description={game.description}
-                            genres={game.genres}/>
+                            genres={game.createdInDb?game.genres.map(el=>el.name).join(', '): game.genres + ''}/>
                         </div>
                     )
                 })}
